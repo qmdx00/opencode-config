@@ -15,6 +15,46 @@
 
 服务状态、数据库、OAuth 凭据、插件依赖和其他未管理文件原样保留。不自动更新、提交或推送 Git，不连接模型或 MCP 服务。
 
+## 本机代理
+
+OpenCode 的请求由后台服务发出。系统代理已启用，或当前终端设置了代理，都不能证明已有后台进程已经使用它。需要代理访问模型服务时，显式保存后台服务的代理环境。
+
+以下以本地 HTTP/混合代理端口 `1086` 为例，先启动代理程序；其他设备按实际端口调整：
+
+```bash
+opencode service set env HTTP_PROXY http://127.0.0.1:1086
+opencode service set env HTTPS_PROXY http://127.0.0.1:1086
+opencode service set env NO_PROXY localhost,127.0.0.1,::1
+opencode service start
+opencode api GET /api/info
+```
+
+两个代理变量的地址都使用 `http://`；`HTTPS_PROXY` 表示 HTTPS 目标经此代理转发，不要求代理地址本身使用 HTTPS。`NO_PROXY` 让 CLI 与后台服务之间的本地连接直接通信。每次修改服务环境会停止已有服务，最后用 `service start` 重新启动。
+
+健康检查通过只代表 CLI 能连接本地服务；再登录模型服务并发送一个简短请求，才能验证服务的出站代理和模型访问权限。模型参数兼容性仍需单独核对。
+
+如果只在当前终端使用临时代理，可执行：
+
+```bash
+export HTTP_PROXY=http://127.0.0.1:1086
+export HTTPS_PROXY=http://127.0.0.1:1086
+export NO_PROXY=localhost,127.0.0.1,::1
+opencode --standalone
+```
+
+这会运行独立服务，使用当前终端环境。已有共享后台服务不会因终端中的 `export` 自动更新；日常使用优先采用上面的持久设置。
+
+关闭持久代理：
+
+```bash
+opencode service unset env HTTP_PROXY
+opencode service unset env HTTPS_PROXY
+opencode service unset env NO_PROXY
+opencode service start
+```
+
+这些设置由各设备单独维护。不要将带账号密码的代理 URL 写入共享仓库或分享完整服务环境输出。配置依据：[OpenCode 网络与代理文档](https://opencode.ai/v2/docs/network/)。
+
 ## 先准备本机覆盖
 
 公共配置内置不含路径和凭据的 CodeGraph MCP 定义，其他本机 MCP、绝对路径和凭据放在仓库外的本机配置目录。需要时复制示例：
@@ -26,7 +66,7 @@ cp examples/local.example.json ~/.config/opencode-config/local.json
 
 如果设置了 `XDG_CONFIG_HOME`，请改用该目录下的 `opencode-config/local.json`，也可通过 `--local` 显式指定文件。
 
-示例中的思源服务禁用，仅用于展示 V2 字段结构。思源项目地址：[siyuan-note/siyuan](https://github.com/siyuan-note/siyuan)；具体服务端点与认证方式由本机服务决定。公共 CodeGraph 已启用，命令需要本机已安装相应程序；安装及禁用方式见 [CodeGraph 接入说明](codegraph.md)。其他服务的地址、认证头等必须替换为实际值后才能启用，不应把示例地址当作已验证端点。
+示例仅包含空的本机覆盖分区，不预设额外 MCP 服务。公共 CodeGraph 已启用，命令需要本机已安装相应程序；安装及禁用方式见 [CodeGraph 接入说明](codegraph.md)。添加其他服务时，地址与认证方式应以本机实际服务为准。
 
 只需要公共配置时不创建本机覆盖文件即可；也可以使用最小文件：
 
@@ -107,6 +147,8 @@ python3 scripts/check.py --target /tmp/opencode-config-preview --installed
 ```
 
 正式启用后，用 `/connect` 完成该设备的 OpenAI 订阅登录，用 `/models` 核对模型和推理变体。首次真实请求还应核对服务档位确实为 Fast；离线检查无法证明订阅通道的运行行为。
+
+Fast 模式统一使用 `providers.openai.body.service_tier: "priority"`。OpenAI API 文档也列出 `fast` 别名，但当前 OpenCode 订阅请求路径会拒绝该值并返回 `Unsupported service_tier: fast`。`priority` 保留 Fast 请求意图；本机覆盖也应使用该值，安装器会在写入前拒绝旧别名。参考 [OpenAI Fast 模式文档](https://developers.openai.com/api/docs/guides/fast-mode)。
 
 ## 配置依据
 

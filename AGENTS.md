@@ -8,6 +8,6 @@
 - 使用 V2 原生字段；改变结构时核对官方主配置与终端配置 Schema。
 - 安装默认只预览。替换现有内容必须显式传入 `--replace-existing` 并创建私有备份；禁止替换整个 OpenCode 全局目录。
 - 使用临时目标测试，不为验证而启用真实全局配置。
-- 相关修改后运行 `python3 scripts/check.py`、`python3 -m unittest discover -s tests -v` 和 `git diff --check`。这些检查不请求模型，不证明实时模型或 Fast 可用性。
+- 相关修改后运行 `python3 scripts/check.py` 和 `git diff --check`；涉及安装行为时，使用临时目标验证。仓库不维护独立测试目录。这些检查不请求模型，不证明实时模型或 Fast 可用性。
 - 使用本地检查和自动化验证，不使用浏览器验证。
 - 自编说明、文档、脚本提示和注释使用中文；代码标识符、配置字段、上游资源和许可证保留原文。

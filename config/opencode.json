@@ -14,7 +14,7 @@
   "providers": {
     "openai": {
       "body": {
-        "service_tier": "fast"
+        "service_tier": "priority"
       }
     }
   },

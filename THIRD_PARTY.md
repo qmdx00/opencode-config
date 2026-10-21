@@ -50,4 +50,4 @@ OpenCode 是本配置的运行平台：[anomalyco/opencode](https://github.com/a
 
 ## 维护约定
 
-子模块提交由父仓库记录固定，正常同步执行 `git submodule update --init --recursive`。主动升级时检查新提交、许可和资源变化，更新本文件，再运行结构检查及安装测试。缓存、依赖、索引和测试产物不作为引用内容提交。
+子模块提交由父仓库记录固定，正常同步执行 `git submodule update --init --recursive`。主动升级时检查新提交、许可和资源变化，更新本文件，再运行结构检查并在临时目录验证安装。缓存、依赖、索引和验证产物不作为引用内容提交。

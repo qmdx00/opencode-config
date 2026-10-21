@@ -185,8 +185,8 @@ def validate_config(value: dict) -> None:
     if not isinstance(providers, dict) or not isinstance(providers.get("openai"), dict):
         raise ConfigError("必须配置 openai 服务商。")
     body = providers["openai"].get("body", {})
-    if not isinstance(body, dict) or body.get("service_tier") != "fast":
-        raise ConfigError("OpenAI 请求必须设置 service_tier=fast。")
+    if not isinstance(body, dict) or body.get("service_tier") != "priority":
+        raise ConfigError("Fast 模式应使用订阅通道兼容的 service_tier=priority。")
     rule_sets = [value.get("permissions", [])]
     for agent in agents.values():
         if not isinstance(agent, dict):

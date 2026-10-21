@@ -12,7 +12,7 @@
 | `brainstorm` | 主会话 | GPT-6.1 Sol · medium | 需求探索、方向比较与最小实验 |
 | 内置 `explore` | 子会话 | GPT-6 Luna · high | 代码定位和资料梳理 |
 
-OpenAI 请求统一指定 `service_tier: "fast"`。模型与权限集中维护在 [`config/opencode.json`](config/opencode.json)，各角色的提示词位于 [`config/agents/`](config/agents/)。配置表达请求意图，实际服务档位仍需在首次使用时确认。
+OpenAI Fast 模式请求统一指定 `service_tier: "priority"`，使用兼容订阅通道的参数值。模型与权限集中维护在 [`config/opencode.json`](config/opencode.json)，各角色的提示词位于 [`config/agents/`](config/agents/)。配置表达请求意图，实际服务档位仍需在首次使用时确认。
 
 架构与头脑风暴角色不修改文件；需要生成文档或图文件时切换到开发角色。审查角色不能直接编辑代码，运行额外 Shell 检查需确认。权限规则是工具访问控制，Shell 不是文件系统沙箱。
 
@@ -27,6 +27,8 @@ git submodule update --init --recursive
 ```
 
 CodeGraph 需要每台设备自行安装并放入 OpenCode 可见的 `PATH`，准备方法见 [CodeGraph 接入说明](docs/codegraph.md)。
+
+需要代理时，按[本机代理配置](docs/setup.md#本机代理)为 OpenCode 后台服务设置代理地址和本地连接排除项。代理设置属于设备差异，单独保存在本机服务配置中；安装公共 JSON 不会覆盖它。
 
 先检查并预览，以下两条命令都不修改全局配置：
 
@@ -92,12 +94,11 @@ python3 scripts/install.py --apply
 
 ```bash
 python3 scripts/check.py
-python3 -m unittest discover -s tests -v
 git diff --check
 ```
 
-测试覆盖预览不写入、冲突保护、备份、重复安装、失败回退、符号链接边界和角色权限。默认检查是本仓库的结构与一致性校验，不等同于完整官方 Schema 验证，不请求模型或 MCP，也不进行浏览器验证。
+仓库保留 Python 安装与检查脚本，不维护独立测试目录。默认检查核对 JSON 结构、角色与命令引用、Skill 元数据和配置源可移植性，不等同于完整官方 Schema 验证，不请求模型或 MCP，也不进行浏览器验证。安装行为可按[隔离目录验证步骤](docs/setup.md#在隔离目录测试)检查。
 
-子模块未初始化时，独立单元测试仍可运行，2 项依赖实际技能文件的集成测试会明确跳过；`check.py` 与安装器会停止并提示初始化，完成下载后再运行全部检查。
+子模块未初始化时，`check.py` 与安装器会停止并提示初始化，完成下载后再运行检查。
 
 临时依赖、缓存、日志、本机覆盖和安装副产物均在 `.gitignore` 中忽略。开发时使用的 `work/` 可以删除，不属于运行配置。
