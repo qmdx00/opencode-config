@@ -1,7 +1,6 @@
 # 本机设置和凭据
 local.json
 local.*.json
-!examples/local.example.json
 .env
 .env.*
 !.env.example

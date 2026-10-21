@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -340,9 +341,11 @@ def plan_install(target: Path, payloads: list[Payload]) -> list[Change]:
         payloads = payloads + [Payload("opencode.jsonc")]
     changes = []
     for payload in payloads:
-        before = fingerprint(guard_path(target, payload.relative))
+        path = guard_path(target, payload.relative)
+        before = fingerprint(path)
         if payload.signature is not None and before == payload.signature:
-            status = "unchanged"
+            # 生成文件的私有权限也是安装要求；沿用更新、备份与回退流程。
+            status = "update" if payload.data is not None and stat.S_IMODE(path.stat().st_mode) != 0o600 else "unchanged"
         elif before is None:
             status = "create"
         elif payload.signature is not None and owned.get(payload.relative) == before:

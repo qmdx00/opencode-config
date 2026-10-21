@@ -24,7 +24,7 @@
 
 diagram-design 的绘图产物由 developer 在用户授权的位置创建，architect 提供图的节点、关系和边界。保留用户的验证偏好：使用本地 SVG/HTML 检查和技能的静态校验，不进行浏览器验证，不声称已验证实际字体或浏览器布局。
 
-技能来源清单：<https://github.com/cathrynlavery/diagram-design>、<https://github.com/mattpocock/skills>。完整技能目录和添加方法见配置仓库的 `config/skills/README.md`。
+配置仓库的 `config/skills/sources.json` 记录启用入口，`config/skills/README.md` 说明添加与升级，`THIRD_PARTY.md` 记录来源与许可。
 
 ## 实施与审查原则
 
