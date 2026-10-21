@@ -1,0 +1,13 @@
+# 配置仓库维护约定
+
+本仓库是个人通用 OpenCode V2 配置的可移植来源。
+
+- `config/AGENTS.md` 是安装后的个人通用指令；本文件仅约束配置仓库的维护。
+- 凭据、本机路径和服务状态不进入 Git。本机覆盖文件保存在用户配置目录。第三方技能以子模块维护，只安装 `config/skills/sources.json` 明确登记的入口；来源、固定版本和许可在 `THIRD_PARTY.md` 中记录。
+- 模型与权限集中维护在 `config/opencode.json`；Agent 的 Markdown 文件保存描述与系统提示词。
+- 使用 V2 原生字段；改变结构时核对官方主配置与终端配置 Schema。
+- 安装默认只预览。替换现有内容必须显式传入 `--replace-existing` 并创建私有备份；禁止替换整个 OpenCode 全局目录。
+- 使用临时目标测试，不为验证而启用真实全局配置。
+- 相关修改后运行 `python3 scripts/check.py`、`python3 -m unittest discover -s tests -v` 和 `git diff --check`。这些检查不请求模型，不证明实时模型或 Fast 可用性。
+- 使用本地检查和自动化验证，不使用浏览器验证。
+- 自编说明、文档、脚本提示和注释使用中文；代码标识符、配置字段、上游资源和许可证保留原文。

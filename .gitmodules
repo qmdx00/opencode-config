@@ -1,0 +1,6 @@
+[submodule "diagram-design"]
+	path = config/skills/diagram-design
+	url = https://github.com/cathrynlavery/diagram-design.git
+[submodule "mattpocock-skills"]
+	path = config/skills/mattpocock-skills
+	url = https://github.com/mattpocock/skills.git

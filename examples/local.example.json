@@ -1,0 +1,18 @@
+{
+  "opencode": {
+    "mcp": {
+      "servers": {
+        "siyuan": {
+          "type": "remote",
+          "url": "http://127.0.0.1:6806/mcp",
+          "headers": {
+            "Authorization": "Bearer {env:SIYUAN_MCP_TOKEN}"
+          },
+          "oauth": false,
+          "disabled": true
+        }
+      }
+    }
+  },
+  "cli": {}
+}

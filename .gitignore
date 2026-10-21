@@ -1,1 +1,41 @@
+# 本机设置和凭据
+local.json
+local.*.json
+!examples/local.example.json
+.env
+.env.*
+!.env.example
+auth.json
+service.json
+
+# 临时工作目录与生成产物
+/work/
+/outputs/
+/artifacts/
+*.log
+*.tmp
+*.swp
 .DS_Store
+
+# 依赖、缓存和检查产物
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage/
+htmlcov/
+.codegraph/
+
+# 本机安装状态与备份
+.opencode-config-backups/
+.opencode-config-state.json
+.opencode-config.lock
+.opencode-config-tmp-*
+opencode.db
+opencode.db-*
