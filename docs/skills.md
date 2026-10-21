@@ -18,6 +18,19 @@
 
 `setup-matt-pocock-skills` 只在明确要求时运行。`code-review` 的并行审查流程由 developer 协调；只需独立审查时用 `/review`。
 
+## 浏览器
+
+`ego-browser` 支持网页操作、截图和浏览器验证。每台设备从 [ego lite 官网](https://lite.ego.app/)下载安装包，通过系统界面安装并完成首次设置，确保 OpenCode 后台服务的 `PATH` 能找到 CLI：
+
+```bash
+command -v ego-browser
+ego-browser skill
+```
+
+使用示例：`@ego-browser 验证本地页面的表单交互并截图`。操作前读取 `ego-browser skill` 输出的版本匹配指南；缺少 CLI 时先征得安装授权。
+
+浏览器应用、登录状态和个人数据不随仓库同步。已有同名技能时，先预览安装冲突，核对后再使用 `--replace-existing`。浏览器操作由 developer 执行，其他角色保留现有权限；付款、发布、删除及表单提交等外部变更须在任务授权范围内。
+
 ## 绘图
 
 ```text
@@ -32,4 +45,4 @@
 python3 scripts/self_check.py /绝对路径/设计图.html
 ```
 
-静态检查不验证实际字体和显示效果；授权与验证约束遵循通用指令。
+静态检查不验证实际字体和显示效果，需要时再通过 ego-browser 验证。

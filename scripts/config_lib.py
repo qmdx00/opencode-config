@@ -143,7 +143,7 @@ def registered_skills(root: Path = ROOT) -> dict[str, Path]:
             raise ConfigError(f"技能来源 {source} 与 .gitmodules 的路径或地址不一致。")
         source_root = parent / source
         if source_root.is_symlink() or not (source_root / ".git").exists():
-            raise ConfigError(f"技能子模块 {source} 尚未初始化，请运行 git submodule update --init --recursive。")
+            raise ConfigError(f"技能子模块 {source} 尚未初始化，请运行 git submodule update --init --recursive --depth 1。")
         for name, relative in skills.items():
             if not IDENTIFIER.fullmatch(name) or name in result:
                 raise ConfigError(f"Skill ID 无效或重复：{name}。")

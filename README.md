@@ -6,10 +6,10 @@
 
 需要 Python 3.10+ 和符号链接支持。适用于 macOS/Linux，Windows 未验证。
 
-首次克隆使用 `git clone --recurse-submodules <本仓库地址>`。已有仓库执行：
+首次克隆使用 `git clone --recurse-submodules --shallow-submodules <本仓库地址>`。已有仓库执行：
 
 ```bash
-git submodule update --init --recursive
+git submodule update --init --recursive --depth 1
 python3 scripts/check.py
 python3 scripts/install.py --dry-run
 ```
@@ -23,7 +23,7 @@ python3 scripts/check.py --installed
 
 已有全局配置时，先按[迁移说明](docs/setup.md#迁移已有全局配置)保留必要设置，再使用 `--replace-existing`。
 
-每台设备需[安装或禁用 CodeGraph](docs/codegraph.md)；代理设置见[本机代理](docs/setup.md#本机代理)。安装后用 `/connect` 登录 OpenAI、`/models` 核对模型与变体，再新建会话。
+每台设备需[安装或禁用 CodeGraph](docs/codegraph.md)；浏览器操作需[准备 ego lite](docs/skills.md#浏览器)，代理设置见[本机代理](docs/setup.md#本机代理)。安装后用 `/connect` 登录 OpenAI、`/models` 核对模型与变体，再新建会话。
 
 ## 日常使用
 
@@ -56,14 +56,16 @@ python3 scripts/check.py --installed
 ## 维护与跨设备同步
 
 ```bash
-git pull
-git submodule update --init --recursive
+git pull --no-recurse-submodules
+git submodule update --init --recursive --depth 1
 python3 scripts/check.py
 python3 scripts/install.py --dry-run
 python3 scripts/install.py --apply
 ```
 
 指令、角色、命令和技能使用符号链接，修改链接内容会修改仓库源文件；JSON 修改或仓库移动后需重新安装。子模块升级见[维护说明](config/skills/README.md#主动升级)，日常同步不使用 `update --remote`。
+
+上述命令限制子模块克隆与补取提交的深度，不拉取完整历史。已下载的历史不会因这些选项自动清除。
 
 ## 本地验证
 

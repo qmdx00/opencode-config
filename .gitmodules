@@ -1,6 +1,12 @@
 [submodule "diagram-design"]
 	path = config/skills/diagram-design
 	url = https://github.com/cathrynlavery/diagram-design.git
+	shallow = true
 [submodule "mattpocock-skills"]
 	path = config/skills/mattpocock-skills
 	url = https://github.com/mattpocock/skills.git
+	shallow = true
+[submodule "ego-lite"]
+	path = config/skills/ego-lite
+	url = https://github.com/citrolabs/ego-lite.git
+	shallow = true

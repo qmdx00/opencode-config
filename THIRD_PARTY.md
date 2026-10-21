@@ -3,6 +3,7 @@
 | 项目 | 原始仓库 | 集成方式 | 许可 |
 | --- | --- | --- | --- |
 | diagram-design | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | Git 子模块，安装单个技能入口 | MIT |
+| ego-lite | [citrolabs/ego-lite](https://github.com/citrolabs/ego-lite) | Git 子模块，仅安装 ego-browser 技能入口 | MIT（仓库内容） |
 | Matt Pocock 技能集 | [mattpocock/skills](https://github.com/mattpocock/skills) | Git 子模块，显式登记技能入口 | MIT |
 | Ponytail | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | 通用规则中文适配与 `/audit` 命令 | MIT |
 | CodeGraph | [colbymchenry/codegraph](https://github.com/colbymchenry/codegraph) | 外部 CLI 与 MCP，不复制源码 | MIT |
@@ -16,6 +17,15 @@
 - 子模块位置：`config/skills/diagram-design`。
 - 安装入口：子模块内 `skills/diagram-design`，不安装仓库根目录插件或命令。
 - 许可：子模块根目录 `LICENSE`；附加说明见 `THIRD_PARTY_LICENSES.md`。
+
+## ego-lite
+
+- 固定提交：[d392204](https://github.com/citrolabs/ego-lite/tree/d392204d1ea1a8027a591ab2b0129c2e11d85f26)。
+- 子模块位置：`config/skills/ego-lite`。
+- 安装入口：子模块内 `skills/ego-browser`，不安装上游插件或根目录指令。
+- 许可：子模块根目录 `LICENSE`，Copyright (c) 2026 CitroLabs。
+
+MIT 许可覆盖仓库中的技能与运行库，不包含闭源的 ego lite 浏览器应用；应用由各设备单独安装。
 
 ## mattpocock/skills
 

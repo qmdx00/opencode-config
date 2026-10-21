@@ -6,6 +6,13 @@
       "diagram-design": "skills/diagram-design"
     }
   },
+  "ego-lite": {
+    "repository": "https://github.com/citrolabs/ego-lite.git",
+    "description": "网页操作、截图与浏览器验证",
+    "skills": {
+      "ego-browser": "skills/ego-browser"
+    }
+  },
   "mattpocock-skills": {
     "repository": "https://github.com/mattpocock/skills.git",
     "description": "通用工程实践与工作流程",

@@ -20,14 +20,14 @@
   },
   "permissions": [
     {
-      "action": "browser",
-      "resource": "*",
-      "effect": "deny"
-    },
-    {
-      "action": "codegraph_codegraph_explore",
+      "action": "*",
       "resource": "*",
       "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push *",
+      "effect": "ask"
     }
   ],
   "agents": {
@@ -201,7 +201,7 @@
         {
           "action": "shell",
           "resource": "*",
-          "effect": "ask"
+          "effect": "allow"
         },
         {
           "action": "shell",
@@ -217,6 +217,11 @@
           "action": "shell",
           "resource": "codegraph explore *",
           "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "git push *",
+          "effect": "ask"
         },
         {
           "action": "external_directory",
